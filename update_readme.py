@@ -15,14 +15,13 @@ def update_readme(repos):
 
     start_index = content.index(START_MARKER) + 1
     end_index = content.index(END_MARKER)
-    content = content[:start_index] + content[end_index:]
 
     repo_lines = [
-        f"| `{repo['name']}` | {repo.get('language', 'Unknown')} | {repo.get('description', 'No description')} |\n"
+        f"| {repo['name']} | {repo.get('language', 'Unknown')} | {repo.get('description', 'No description')} |\n"
         for repo in repos
     ]
-
-    content[start_index:start_index] = repo_lines
+    
+    content = content[:start_index] + repo_lines + content[end_index:]
 
     with open(README_FILE, "w") as file:
         file.writelines(content)
